@@ -69,18 +69,6 @@ body {
     }
 }
 
-/*@media screen and (max-width: 834px) {*/
-/*    .searchForm {*/
-/*        margin-top: 1rem;*/
-/*        margin-bottom: .5rem;*/
-/*    }*/
-/*    .navbar {*/
-/*        justify-content: center !important;*/
-/*    }*/
-/*    .nav-tabs{*/
-/*        justify-content: center;*/
-/*    }*/
-/*}*/
 
 @media screen and (max-width: 768px) {
     .card {
