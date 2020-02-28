@@ -1,0 +1,108 @@
+body {
+    background-image: url("img/bitcoin-img5.jpg");
+    background-attachment: fixed;
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
+}
+
+
+.container {
+    margin-top: 20px;
+}
+
+.navbar {
+    padding-bottom: 0 !important;
+}
+
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+
+.card {
+    margin: 0 .5rem 1rem .5rem;
+    width: 22rem;
+}
+
+.dropdown-menu {
+    width: 12rem !important;
+    height: 7rem !important;
+}
+
+.dropdown-menu p {
+    margin-bottom: 0;
+}
+
+#chartContainer {
+    height: 370px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+#search-form {
+    margin-top: -7px;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .card {
+        width: 18rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .card {
+        width: 22rem;
+    }
+}
+@media screen and (max-width: 950px) {
+    .searchForm {
+        margin-top: 1rem;
+        margin-bottom: .5rem;
+    }
+    .navbar {
+        justify-content: center !important;
+    }
+    .nav-tabs{
+        justify-content: center;
+    }
+}
+
+/*@media screen and (max-width: 834px) {*/
+/*    .searchForm {*/
+/*        margin-top: 1rem;*/
+/*        margin-bottom: .5rem;*/
+/*    }*/
+/*    .navbar {*/
+/*        justify-content: center !important;*/
+/*    }*/
+/*    .nav-tabs{*/
+/*        justify-content: center;*/
+/*    }*/
+/*}*/
+
+@media screen and (max-width: 768px) {
+    .card {
+        margin: 0 .1rem .2rem .1rem;
+        width: 18rem;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .card {
+        width: 26rem;
+        margin: 0 0 .5rem 0;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .custom-text {
+        display: inline;
+        font-size: 2rem;
+    }
+
+    .form-inline {
+         flex-flow: unset !important;
+    }
+}
