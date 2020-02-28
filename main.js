@@ -193,6 +193,7 @@ function renderModalEl() {
     $ELEMENTS.modalContent.html('');
     $ELEMENTS.content.html('');
     $ELEMENTS.searchRes.html('');
+    $ELEMENTS.topCoinsContent.html('');
     $('#modal').modal('show');
     renderCards(cardEl, $ELEMENTS.modalContent);
     $ELEMENTS.saveModalBtn.prop('disabled', true);
@@ -249,6 +250,7 @@ function homeBtn() {
     clearInterval(state.intervalId);
     $ELEMENTS.content.html('');
     $ELEMENTS.searchRes.html('');
+    $ELEMENTS.topCoinsContent.html('');
     renderCards(state.dataToShowArr);
 }
 
@@ -257,6 +259,7 @@ function searchTab() {
     const searchEl = [];
     $ELEMENTS.content.html('');
     $ELEMENTS.searchRes.html('');
+    $ELEMENTS.topCoinsContent.html('');
 
     if (state.searchData.length === 0) {
         $ELEMENTS.searchRes.html('<h3 class="text-secondary">Search tab is empty.</h3>');
@@ -281,6 +284,8 @@ function resetSelected() {
     state.chartElement = [];
     if ($ELEMENTS.searchTab.hasClass('active')) {
         searchTab()
+    } else if ($ELEMENTS.topCoins.hasClass('active')) {
+        topCoins()
     } else {
         homeBtn()
     }
