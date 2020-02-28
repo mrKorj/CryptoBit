@@ -209,8 +209,11 @@ function showChartModalBtn() {
 function saveModalBtn() {
     if ($ELEMENTS.searchTab.hasClass('active')) {
         searchTab()
+    }else if ($ELEMENTS.topCoins.hasClass('active')) {
+        topCoins()
+    } else {
+        renderCards(state.dataToShowArr)
     }
-    renderCards(state.dataToShowArr)
 }
 
 //----- search section-------
