@@ -3,7 +3,7 @@ const state = {
     urlFullList: 'https://api.coingecko.com/api/v3/coins/list',
     responseArr: null,
     dataToShowArr: null,
-    topCoins: ['btc', '42', 'btwty', 'rbtc', 'btcb', 'wbtc', 'nanox', 'bitbtc', 'thr', 'mkr', 'bch', 'bsv', 'eth', 'dash', 'xmr', 'ltc', 'mapr'],
+    topCoins: ['42', 'btwty', 'nanox', 'btc', 'btcb', 'wbtc', 'bitbtc', 'rbtc', 'thr', 'mkr', 'bch', 'eth', 'bsv', 'dash', 'xmr', 'ltc', 'zec', 'dgd', 'mapr'],
     moreInfoCache: [],
     cacheLiveTime: 60000,    // 60000ms (1 min)
     chartElement: [],
@@ -27,14 +27,15 @@ const $ELEMENTS = {
     saveModalBtn: $('#save-modal'),
     showChartModalBtn: $('#chart-modal'),
     searchRes: $('.searchRes'),
-    notFound: $('.not-found'),
+    // notFound: $('.not-found'),
     prevBtn: $('.prev'),
     nextBtn: $('.next'),
     pageNum: $('.pageNumber'),
     navStatusPrevBtn: $('.navStatusPrevBtn'),
     navStatusNextBtn: $('.navStatusNextBtn'),
     selectNumCardsOnPage: $('#select'),
-    resetSelected: $('#resetSelected')
+    resetSelected: $('#resetSelected'),
+    numFound: $('#numFound')
 };
 
 //----- main app-----
@@ -64,18 +65,27 @@ function topCoins() {
     renderCards(topCoinsEl, $ELEMENTS.topCoinsContent)
 }
 
-//----- get Data from API-----
+function preparingData() {
+    $ELEMENTS.content.html('');
+    state.responseArr = state.responseArr.filter((obj, index, self) =>
+        index === self.findIndex((val) => (
+            val.symbol === obj.symbol
+        ))
+    );
+    state.dataToShowArr = state.responseArr.slice(0, state.indexEvaluation);
+    state.lastIndex = state.indexEvaluation;
+    state.numAllPages = Math.round(state.responseArr.length / state.indexEvaluation);
+    $ELEMENTS.pageNum.text(`${state.pageCounter} of ${state.numAllPages}`);
+    renderCards(state.dataToShowArr);
+    console.log(state.responseArr)
+}
 
+//----- get Data from API-----
 function getData() {
     $.ajax(state.urlFullList, {
         success: data => {
-            $ELEMENTS.content.html('');
             state.responseArr = data;
-            state.dataToShowArr = data.slice(0, state.indexEvaluation);
-            state.lastIndex = state.indexEvaluation;
-            state.numAllPages = Math.round(state.responseArr.length / state.indexEvaluation);
-            $ELEMENTS.pageNum.text(`${state.pageCounter} of ${state.numAllPages}`);
-            renderCards(state.dataToShowArr);
+            preparingData()
         },
         error: (jqXHR, textStatus) => {
             $ELEMENTS.content.html(`<h3 class="text-center text-danger">${textStatus} ${jqXHR.status}, ${jqXHR.responseText}</h3>`);
@@ -222,29 +232,28 @@ function search(e) {
     e.preventDefault();
     const input = e.target;
     const name = input.search.value.toLowerCase();
-    $ELEMENTS.notFound.html('');
-    if (!state.searchData.includes(name)) {
-        const searchEl = state.responseArr.filter((val) => {
-            return val.symbol === name
-        });
+    $ELEMENTS.numFound.html('');
 
-        if (searchEl.length === 0) {
-            $ELEMENTS.notFound.html(`<h3>Sorry. coin <span class="text-danger text-uppercase">"${name}"</span> not found</h3>`);
-        } else {
-            $ELEMENTS.content.html('');
-            state.searchData.push(name);
-            searchTab();               // include renderCard function
-        }
-    }
+    state.searchData = [];
+    state.responseArr.filter(val => {
+        if (val.symbol.startsWith(name)) state.searchData.push(val.symbol)
+    });
+    $ELEMENTS.numFound.html(`<h4 class="mt-2">
+        Found <span class="text-danger">${state.searchData.length}</span> matches with 
+        <span class="text-danger">"${name.toUpperCase()}"</span></h4>`);
 
-    searchTab();
+    $ELEMENTS.content.html('');
+    searchTab();               // include renderCard function
     $ELEMENTS.searchTab.tab('show');
     $ELEMENTS.searchForm.trigger('reset');
 }
 
 function clearSearch() {
-    $ELEMENTS.searchRes.html('<h3 class="text-secondary">Search history cleared.</h3>');
-    $ELEMENTS.notFound.html('');
+    $ELEMENTS.searchRes.html('');
+    $ELEMENTS.numFound.html('<h4 class="text-secondary mt-2">Search history cleared.</h4>');
+    setTimeout(() => {
+        $ELEMENTS.numFound.html('')
+    }, 3000);
     state.searchData = []
 }
 
@@ -265,7 +274,7 @@ function searchTab() {
     $ELEMENTS.topCoinsContent.html('');
 
     if (state.searchData.length === 0) {
-        $ELEMENTS.searchRes.html('<h3 class="text-secondary">Search tab is empty.</h3>');
+        $ELEMENTS.searchRes.html('<h5 class="text-secondary">Search tab is empty.</h5>');
     } else {
         generateFilteredArr(state.searchData, searchEl)
     }
