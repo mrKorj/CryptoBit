@@ -58,13 +58,6 @@ function main() {
 
 main();
 
-function topCoins() {
-    const topCoinsEl = [];
-    $ELEMENTS.topCoinsContent.html('');
-    generateFilteredArr(state.topCoins, topCoinsEl);
-    renderCards(topCoinsEl, $ELEMENTS.topCoinsContent)
-}
-
 function preparingData() {
     $ELEMENTS.content.html('');
     state.responseArr = state.responseArr.filter((obj, index, self) =>
@@ -289,6 +282,14 @@ function generateFilteredArr(dataIn, dataOut) {
             }
         });
     });
+}
+
+function topCoins() {
+    clearInterval(state.intervalId);
+    const topCoinsEl = [];
+    $ELEMENTS.topCoinsContent.html('');
+    generateFilteredArr(state.topCoins, topCoinsEl);
+    renderCards(topCoinsEl, $ELEMENTS.topCoinsContent)
 }
 
 // --------- reset selected Card --
