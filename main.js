@@ -3,7 +3,7 @@ const state = {
     urlFullList: 'https://api.coingecko.com/api/v3/coins/list',
     responseArr: null,
     dataToShowArr: null,
-    topCoins: ['42', 'btwty', 'nanox', 'btc', 'btcb', 'wbtc', 'bitbtc', 'rbtc', 'thr', 'mkr', 'bch', 'eth', 'bsv', 'dash', 'xmr', 'ltc', 'zec', 'dgd', 'mapr'],
+    topCoins: ['btwty', '42', 'nanox', 'btc', 'wbtc', 'btcb', 'bitbtc', 'rbtc', 'thr', 'mkr', 'bch', 'eth', 'bsv', 'dash', 'xmr', 'ltc', 'zec', 'dgd', 'mapr'],
     moreInfoCache: [],
     cacheLiveTime: 60000,    // 60000ms (1 min)
     chartElement: [],
@@ -27,7 +27,6 @@ const $ELEMENTS = {
     saveModalBtn: $('#save-modal'),
     showChartModalBtn: $('#chart-modal'),
     searchRes: $('.searchRes'),
-    // notFound: $('.not-found'),
     prevBtn: $('.prev'),
     nextBtn: $('.next'),
     pageNum: $('.pageNumber'),
@@ -35,7 +34,9 @@ const $ELEMENTS = {
     navStatusNextBtn: $('.navStatusNextBtn'),
     selectNumCardsOnPage: $('#select'),
     resetSelected: $('#resetSelected'),
-    numFound: $('#numFound')
+    numFound: $('#numFound'),
+    chartContainer: $('#chartContainer'),
+    notSupCoins: $('#notSupported')
 };
 
 //----- main app-----
@@ -109,12 +110,12 @@ function getMoreInfo(e) {
     const card = e.target;
     const cardId = card.id;
     const $moreCont = $(`.${card.id}-content`);
-    const showEl = $(`#${card.id}-con`);
-    if (!showEl.hasClass('show')) {
+    const $showEl = $(`#${card.id}-con`);
+    if (!$showEl.hasClass('show')) {
         $moreCont.html(spinner());
         moreInfoDataPromise(cardId, $moreCont);
     }
-    showEl.collapse('toggle');
+    $showEl.collapse('toggle');
 }
 
 function getMoreData(cardId, $moreCont) {
@@ -256,6 +257,7 @@ function homeBtn() {
     $ELEMENTS.content.html('');
     $ELEMENTS.searchRes.html('');
     $ELEMENTS.topCoinsContent.html('');
+    $ELEMENTS.notSupCoins.html('');
     renderCards(state.dataToShowArr);
 }
 
@@ -265,6 +267,7 @@ function searchTab() {
     $ELEMENTS.content.html('');
     $ELEMENTS.searchRes.html('');
     $ELEMENTS.topCoinsContent.html('');
+    $ELEMENTS.notSupCoins.html('');
 
     if (state.searchData.length === 0) {
         $ELEMENTS.searchRes.html('<h5 class="text-secondary">Search tab is empty.</h5>');
@@ -274,6 +277,14 @@ function searchTab() {
     renderCards(searchEl, $ELEMENTS.searchRes);
 }
 
+function topCoins() {
+    clearInterval(state.intervalId);
+    const topCoinsEl = [];
+    $ELEMENTS.topCoinsContent.html('');
+    $ELEMENTS.notSupCoins.html('');
+    generateFilteredArr(state.topCoins, topCoinsEl);
+    renderCards(topCoinsEl, $ELEMENTS.topCoinsContent)
+}
 function generateFilteredArr(dataIn, dataOut) {
     dataIn.forEach(symbol => {
         state.responseArr.find((val) => {
@@ -282,14 +293,6 @@ function generateFilteredArr(dataIn, dataOut) {
             }
         });
     });
-}
-
-function topCoins() {
-    clearInterval(state.intervalId);
-    const topCoinsEl = [];
-    $ELEMENTS.topCoinsContent.html('');
-    generateFilteredArr(state.topCoins, topCoinsEl);
-    renderCards(topCoinsEl, $ELEMENTS.topCoinsContent)
 }
 
 // --------- reset selected Card --
