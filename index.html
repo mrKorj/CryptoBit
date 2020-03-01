@@ -13,18 +13,32 @@
 </head>
 <body>
 <div class="container-lg">
-    <div class="m-2">
-        <h1 class="text-secondary custom-text"><span class="badge badge-primary text-wrap">&#8383;</span> Crypto&#8383;it
-        </h1>
+    <div class="head d-flex justify-content-between align-items-center m-2">
+        <div>
+            <h1 class="text-secondary custom-text"><span class="badge badge-primary text-wrap">&#8383;</span> Crypto&#8383;it
+            </h1>
+        </div>
+
+        <div class="social d-flex justify-content-between">
+            <a class="m-2" href="https://linkedin.com/in/sergy-kremenchugsky-31644b159" target="_blank"><i
+                    class="fab fa-linkedin-in"></i></a>
+            <a class="m-2" href="https://github.com/mrKorj/mrkorj.github.io.git" target="_blank"><i
+                    class="fab fa-github"></i></a>
+            <a class="m-2" href="mailto:mr.korj@gmail.com"><i class="fas fa-at"></i></a>
+        </div>
     </div>
     <nav class="navbar navbar-light bg-light border">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home" data-toggle="tab" href="#homeTab" role="tab"
                aria-controls="nav-home" aria-selected="true">Coins List</a>
             <a class="nav-item nav-link" id="top-coins" data-toggle="tab" href="#top" role="tab"
-               aria-controls="nav-about" aria-selected="false">Popular Coins</a>
+               aria-controls="nav-top" aria-selected="false">Popular Coins</a>
             <a class="nav-item nav-link" id="nav-reports" data-toggle="tab" href="#reports" role="tab"
                aria-controls="nav-reports" aria-selected="false">Live Chart</a>
+
+            <a class="nav-item nav-link" id="nav-about" data-toggle="tab" href="#about" role="tab"
+               aria-controls="nav-about" aria-selected="false">About</a>
+
             <a class="nav-item nav-link text-success" id="nav-search-res" data-toggle="tab" href="#search-res"
                role="tab"
                aria-controls="nav-search-res" aria-selected="false">Search Results</a>
@@ -108,10 +122,37 @@
                     service.</p>
             </div>
         </div>
-        <div class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="nav-about-tab">
-            <div class="text-center m-3"><h3 class="text-secondary">Top most Popular & Expensive CryptoCurrency</h3></div>
+        <div class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="nav-top-tab">
+            <div class="text-center m-3"><h3 class="text-secondary">Top most Popular & Expensive CryptoCurrency</h3>
+            </div>
             <div id="topContent" class="d-flex flex-wrap justify-content-center "></div>
         </div>
+
+        <div class="tab-pane fade text-secondary" id="about" role="tabpanel" aria-labelledby="nav-about-tab">
+            <div class="text-center m-4"><h5>This is a training project. Not for Public use. All rights reserved by the
+                developer.</h5>
+                <h5>Kremenchugsky Sergy <i class="far fa-copyright"></i></h5>
+
+                <div class="social-about text-secondary m-4">
+                    <span>All Data Provided by:</span>
+                    <a class="m-2 text-decoration-none" href="https://www.coingecko.com/"
+                       target="_blank">CoinGecko.com</a>
+                    <a class="m-2 text-decoration-none" href="https://www.cryptocompare.com/"
+                       target="_blank">CryptoCompare.com</a>
+                </div>
+
+                <div class="social-about text-secondary m-4">
+                    <span>Contacts:</span>
+                    <a class="m-2 text-decoration-none" href="https://linkedin.com/in/sergy-kremenchugsky-31644b159"
+                       target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    <a class="m-2 text-decoration-none" href="https://github.com/mrKorj/mrkorj.github.io.git"
+                       target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a class="m-2 text-decoration-none" href="mailto:mr.korj@gmail.com"><i class="fas fa-at"></i> Email</a>
+                </div>
+            </div>
+            <div id="" class="d-flex flex-wrap justify-content-center "></div>
+        </div>
+
         <div class="tab-pane fade" id="search-res" role="tabpanel" aria-labelledby="nav-search-tab">
             <div class="search-section d-flex justify-content-between">
                 <div id="numFound" class="text-secondary"></div>
@@ -122,6 +163,7 @@
             <div class="searchRes d-flex flex-wrap"></div>
         </div>
     </div>
+    <hr>
 </div>
 
 <!--modal-->

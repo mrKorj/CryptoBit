@@ -43,7 +43,12 @@ body {
 #search-form {
     margin-top: -7px;
 }
-
+.social {
+    font-size: 1.75rem;
+}
+.social-about {
+    font-size: 1.25rem;
+}
 
 @media screen and (max-width: 1200px) {
     .card {
@@ -85,6 +90,9 @@ body {
 }
 
 @media screen and (max-width: 576px) {
+    .head {
+        flex-direction: column;
+    }
     .custom-text {
         display: inline;
         font-size: 2rem;
@@ -92,5 +100,12 @@ body {
 
     .form-inline {
          flex-flow: unset !important;
+    }
+    .social {
+        font-size: 1.25rem;
+    }
+    .social-about {
+        display: flex;
+        flex-direction: column;
     }
 }
