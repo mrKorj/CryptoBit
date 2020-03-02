@@ -200,6 +200,7 @@ function renderModalEl() {
     $ELEMENTS.topCoinsContent.html('');
     $('#modal').modal('show');
     renderCards(cardEl, $ELEMENTS.modalContent);
+    $('.more-btn').hide();
     $ELEMENTS.saveModalBtn.prop('disabled', true);
     $ELEMENTS.showChartModalBtn.prop('disabled', true);
 }
@@ -285,6 +286,7 @@ function topCoins() {
     generateFilteredArr(state.topCoins, topCoinsEl);
     renderCards(topCoinsEl, $ELEMENTS.topCoinsContent)
 }
+
 function generateFilteredArr(dataIn, dataOut) {
     dataIn.forEach(symbol => {
         state.responseArr.find((val) => {
