@@ -18,8 +18,12 @@ body {
 .nav-tabs {
     border-bottom: none !important;
 }
-
-
+.badge {
+    padding: .25em .5em !important;
+}
+.badge-primary {
+    background-image: linear-gradient(#a8d9ff, #007bff);
+}
 .card {
     margin: 0 .5rem 1rem .5rem;
     width: 22rem;
@@ -44,24 +48,39 @@ body {
     margin-top: -7px;
 }
 .social {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+}
+.social i {
+    color: #fff;
+    background: -webkit-linear-gradient(#87cafd, #007bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.social i:hover {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 .social-about {
     font-size: 1.25rem;
 }
+.social-about i {
+    color: #fff;
+    background: -webkit-linear-gradient(#87cafd, #007bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.social-about a:hover {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.more-btn, .customBtn{
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.15) 51%, rgba(0,0,0,0.05));
+    background-repeat: repeat-x;
+}
+
 
 @media screen and (max-width: 1200px) {
     .card {
         width: 18rem;
     }
-}
-
-@media screen and (max-width: 992px) {
-    .card {
-        width: 22rem;
-    }
-}
-@media screen and (max-width: 950px) {
     .searchForm {
         margin-top: 1rem;
         margin-bottom: .5rem;
@@ -74,6 +93,11 @@ body {
     }
 }
 
+@media screen and (max-width: 992px) {
+    .card {
+        width: 22rem;
+    }
+}
 
 @media screen and (max-width: 768px) {
     .card {
