@@ -19,7 +19,7 @@ const $ELEMENTS = {
     content: $('#home'),
     home: $('#nav-home'),
     reports: $('#nav-reports'),
-    topCoins: $('#top-coins'),
+    topCoinsBtn: $('#top-coins'),
     topCoinsContent: $('#topContent'),
     clearSearch: $('#clear'),
     searchTab: $('#nav-search-res'),
@@ -53,11 +53,25 @@ function main() {
     $ELEMENTS.prevBtn.on('click', prevBtn);
     $ELEMENTS.selectNumCardsOnPage.on('change', selectNumCardsOnPage);
     $ELEMENTS.resetSelected.on('click', resetSelected);
-    $ELEMENTS.topCoins.on('click', topCoins);
+    $ELEMENTS.topCoinsBtn.on('click', topCoins);
     $ELEMENTS.resetSelected.hide();
 }
 
 main();
+
+//----- get Data from API-----
+function getData() {
+    $.ajax(state.urlFullList, {
+        success: data => {
+            state.responseArr = data;
+            preparingData()
+        },
+        error: (jqXHR, textStatus) => {
+            $ELEMENTS.content.html(`<h3 class="text-center text-danger">${textStatus} ${jqXHR.status}, ${jqXHR.responseText}</h3>`);
+            console.log(jqXHR);
+        }
+    })
+}
 
 function preparingData() {
     $ELEMENTS.content.html('');
@@ -74,20 +88,6 @@ function preparingData() {
     console.log(state.responseArr)
 }
 
-//----- get Data from API-----
-function getData() {
-    $.ajax(state.urlFullList, {
-        success: data => {
-            state.responseArr = data;
-            preparingData()
-        },
-        error: (jqXHR, textStatus) => {
-            $ELEMENTS.content.html(`<h3 class="text-center text-danger">${textStatus} ${jqXHR.status}, ${jqXHR.responseText}</h3>`);
-            console.log(jqXHR);
-        }
-    })
-}
-
 //----------- card section
 function renderCards(responseObj, tabContainer = $ELEMENTS.content) {
     responseObj.forEach((arrEl) => {
@@ -102,6 +102,8 @@ function renderCards(responseObj, tabContainer = $ELEMENTS.content) {
 function checkBoxStatus($el, name) {
     if (state.chartElement.includes(name)) {
         $el.find('.check').prop('checked', true);
+        $(`.${name}`).removeClass('bg-light').addClass('checkedCard');
+        console.log(name)
     }
 }
 
@@ -172,10 +174,12 @@ function addToChart(e) {
 
     if ($(this).is(':checked')) {
         state.chartElement.push(val.id);
+        $(`.${val.id}`).removeClass('bg-light').addClass('checkedCard');
         $ELEMENTS.resetSelected.show(300)
     } else {
         const index = state.chartElement.findIndex(index => index === val.id);
         state.chartElement.splice(index, 1);
+        $(`.${val.id}`).removeClass('checkedCard').addClass('bg-light');
     }
 
     if (state.chartElement.length > 5) {
@@ -214,7 +218,7 @@ function showChartModalBtn() {
 function saveModalBtn() {
     if ($ELEMENTS.searchTab.hasClass('active')) {
         searchTab()
-    } else if ($ELEMENTS.topCoins.hasClass('active')) {
+    } else if ($ELEMENTS.topCoinsBtn.hasClass('active')) {
         topCoins()
     } else {
         renderCards(state.dataToShowArr)
@@ -302,7 +306,7 @@ function resetSelected() {
     state.chartElement = [];
     if ($ELEMENTS.searchTab.hasClass('active')) {
         searchTab()
-    } else if ($ELEMENTS.topCoins.hasClass('active')) {
+    } else if ($ELEMENTS.topCoinsBtn.hasClass('active')) {
         topCoins()
     } else {
         homeBtn()
@@ -324,7 +328,6 @@ function selectNumCardsOnPage() {
     state.dataToShowArr = state.responseArr.slice(0, state.indexEvaluation);
     renderCards(state.dataToShowArr);
 }
-
 
 function nextBtn() {
     $ELEMENTS.content.html('');
@@ -372,7 +375,6 @@ function pagination(dataArr, paginationDirection) {
     renderCards(state.dataToShowArr)
 }
 
-
 // ---- HTML Elements section-----
 function moreHtmlEl(coin) {
     return `<div class="text-center d-flex justify-content-around align-items-center bg-light">
@@ -389,7 +391,7 @@ function moreHtmlEl(coin) {
 
 function createCardEl(responseObj) {
     return $(`
-            <div class="card bg-light shadow-sm">
+            <div class="${responseObj.symbol} card bg-light shadow-sm">
                 <div class="card-body">
                     <p class="card-title d-inline">symbol: <span class="font-weight-bold text-uppercase">${responseObj.symbol}</span></p>
                     <div class="custom-control custom-switch d-inline float-right">
