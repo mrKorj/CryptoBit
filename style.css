@@ -18,17 +18,21 @@ body {
     border-bottom: none !important;
 }
 
-.badge {
-    padding: .25em .5em !important;
-    font-size: 100% !important;
-}
-
-.badge-primary {
-    background-image: radial-gradient(#a8d9ff, #007bff);
-}
-
 .custom-text {
     text-shadow: 2px 2px 4px rgba(0, 100, 255, 0.5);
+}
+
+.logo {
+    border-radius: 50%;
+    background-image: radial-gradient(#a8d9ff, #007bff);
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+.logo p {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
 }
 
 .card {
@@ -54,15 +58,18 @@ body {
 #search-form {
     margin-top: -7px;
 }
+
 .social {
     font-size: 1.5rem;
 }
+
 .social i {
     color: #fff;
     background: -webkit-linear-gradient(#87cafd, #007bff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .social i:hover {
     background: -webkit-linear-gradient(#87cafd, #0717ff);
     -webkit-background-clip: text;
@@ -72,21 +79,24 @@ body {
 .social-about {
     font-size: 1.25rem;
 }
+
 .social-about i {
     color: #fff;
     background: -webkit-linear-gradient(#87cafd, #007bff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .social-about a:hover {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
+
 .more-btn, .customBtn{
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.15) 51%, rgba(0,0,0,0.05));
     background-repeat: repeat-x;
 }
 
-
+/*---------- media query---------------*/
 @media screen and (max-width: 1200px) {
     .card {
         width: 18rem;
@@ -128,11 +138,18 @@ body {
         width: 26rem;
         margin: 0 0 .5rem 0;
     }
+
     .custom-text {
         font-size: 1.5rem;
     }
-    .badge {
-        font-size: 75% !important;
+
+    .logo {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .logo p {
+        font-size: 1.25rem;
     }
 }
 
