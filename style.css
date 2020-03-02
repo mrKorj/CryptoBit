@@ -126,6 +126,12 @@ body {
         width: 26rem;
         margin: 0 0 .5rem 0;
     }
+    .custom-text {
+        font-size: 1.5rem;
+    }
+    .badge {
+        font-size: 75% !important;
+    }
 }
 
 @media screen and (max-width: 576px) {
