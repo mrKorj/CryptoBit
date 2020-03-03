@@ -16,11 +16,13 @@
     <div class="head d-flex justify-content-between align-items-center m-2">
         <div>
             <div class="d-flex">
-                <div class="logo d-flex justify-content-center mb-1">
-                    <p class="">&#8383;</p>
+                <div class="logo d-flex justify-content-center">
+                    <a href="https://mrkorj.github.io/" class="logo-link">&#8383;</a>
                 </div>
                 <div>
-                    <h2 class="text-secondary custom-text text-uppercase ml-1">Crypto&#8383;it</h2>
+                    <a href="https://mrkorj.github.io/" class="logo-text">
+                        <h2 class="text-secondary custom-text text-uppercase ml-1">Crypto&#8383;it</h2>
+                    </a>
                 </div>
             </div>
         </div>
@@ -119,7 +121,20 @@
             </nav>
         </div>
         <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="nav-reports-tab">
-            <div id="notSupported" class="text-center mt-2"></div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div id="notSupported" class="mt-2"></div>
+                <div class=" ml-5 mt-2 align-items-center">
+                    <label class="interval-label" for="select">Update Interval:
+                        <select class="" id="interval">
+                            <option selected>3 sec</option>
+                            <option value="5">5 sec</option>
+                            <option value="10">10 sec</option>
+                            <option value="20">20 sec</option>
+                            <option value="30">30 sec</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
             <div id="chartContainer"></div>
             <div class="description">
                 <p class="text-center font-weight-bold"><span class="text-danger text-uppercase">warning.</span> If some

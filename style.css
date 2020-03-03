@@ -29,10 +29,18 @@ body {
     width: 2.5rem;
 }
 
-.logo p {
+.logo a {
     color: white;
     font-size: 1.6rem;
     font-weight: bold;
+}
+
+.logo-link:hover {
+    text-decoration: none;
+}
+
+.logo-text:hover {
+    text-decoration: none;
 }
 
 .card {
@@ -57,6 +65,16 @@ body {
 
 #search-form {
     margin-top: -7px;
+}
+
+#interval {
+    width: 4.5rem;
+    border-radius: .2rem;
+    font-size: 1rem;
+}
+
+.interval-label {
+    font-size: 1rem;
 }
 
 .social {
@@ -131,6 +149,14 @@ body {
         margin: 0 .1rem .2rem .1rem;
         width: 18rem;
     }
+
+    #interval {
+        font-size: .8rem;
+    }
+
+    .interval-label {
+        font-size: .8rem;
+    }
 }
 
 @media screen and (max-width: 620px) {
@@ -148,7 +174,7 @@ body {
         width: 2rem;
     }
 
-    .logo p {
+    .logo a {
         font-size: 1.25rem;
     }
 }

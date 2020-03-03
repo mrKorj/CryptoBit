@@ -4,6 +4,7 @@ const state = {
     responseArr: null,
     dataToShowArr: null,
     topCoins: ['btwty', '42', 'nanox', 'btc', 'wbtc', 'btcb', 'bitbtc', 'rbtc', 'thr', 'mkr', 'bch', 'eth', 'bsv', 'dash', 'xmr', 'ltc', 'zec', 'dgd', 'mapr'],
+    newCoinsList: [],
     moreInfoCache: [],
     cacheLiveTime: 60000,    // 60000ms (1 min)
     chartElement: [],
@@ -12,6 +13,7 @@ const state = {
     pageCounter: 1,
     lastIndex: 0,
     numAllPages: 0,
+    chartUpdateInterval: 3000,   // ms
     indexEvaluation: 20    // number cards on page
 };
 const $ELEMENTS = {
@@ -33,6 +35,7 @@ const $ELEMENTS = {
     navStatusPrevBtn: $('.navStatusPrevBtn'),
     navStatusNextBtn: $('.navStatusNextBtn'),
     selectNumCardsOnPage: $('#select'),
+    chartUpdateInterval: $('#interval'),
     resetSelected: $('#resetSelected'),
     numFound: $('#numFound'),
     chartContainer: $('#chartContainer'),
@@ -54,10 +57,18 @@ function main() {
     $ELEMENTS.selectNumCardsOnPage.on('change', selectNumCardsOnPage);
     $ELEMENTS.resetSelected.on('click', resetSelected);
     $ELEMENTS.topCoinsBtn.on('click', topCoins);
+    $ELEMENTS.chartUpdateInterval.on('change', chartUpdateInterval);
     $ELEMENTS.resetSelected.hide();
 }
 
 main();
+
+function chartUpdateInterval() {
+    const val = parseInt($($ELEMENTS.chartUpdateInterval).val());
+    state.chartUpdateInterval = val * 1000;
+    clearInterval(state.intervalId);
+    renderChart(state.newCoinsList);
+}
 
 //----- get Data from API-----
 function getData() {

@@ -5,7 +5,6 @@ const chartModule = function () {
                 <div class="spinner-border m-2" style="width: 3rem; height: 3rem;" role="status"></div>
             </div>`);
 
-    const newCoinsList = [];
     const coins = state.chartElement.join(',');
 
     if (state.chartElement.length === 0) {
@@ -14,15 +13,18 @@ const chartModule = function () {
         $.ajax(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${coins}&tsyms=USD`, {
             success: resData => {
                 for (let [key, value] of Object.entries(resData)) {
-                    newCoinsList.push(key.toLowerCase());
+                    state.newCoinsList.push(key.toLowerCase());
                 }
-                if (newCoinsList.includes('response')) {
-                    $ELEMENTS.chartContainer.html(`<h4>Sorry. Coins "<span class="text-danger">
-                        ${coins.toUpperCase()}</span>" NOT Supported in Chart</h4>`)
+                if (state.newCoinsList.includes('response')) {
+                    $ELEMENTS.chartContainer.html(`<h4>Sorry. Coins <span class="text-danger">"
+                        ${coins.toUpperCase()}"</span> NOT Supported in Chart</h4>`)
                 } else {
-                    renderChart(newCoinsList);
-                    notSupportedCoins(newCoinsList)
+                    renderChart(state.newCoinsList);
+                    notSupportedCoins(state.newCoinsList)
                 }
+            },
+            error: (jqXHR, textStatus) => {
+                $ELEMENTS.chartContainer.html(`<p class="text-center text-danger">${textStatus} ${jqXHR.status}</p>`)
             }
         })
     }
@@ -30,7 +32,6 @@ const chartModule = function () {
 };
 
 function renderChart(coinsList) {
-    const updateInterval = 3000;
     const coins = coinsList.join(',');
     const chart = new CanvasJS.Chart("chartContainer", {
         zoomEnabled: true,
@@ -42,7 +43,7 @@ function renderChart(coinsList) {
             fontSize: 25
         },
         axisX: {
-            title: "chart updates every 3 secs",
+            title: `chart updates every ${state.chartUpdateInterval / 1000} secs`,
             valueFormatString: "HH:mm:ss"
         },
         axisY: {
@@ -61,7 +62,6 @@ function renderChart(coinsList) {
         },
         data: []
     });
-    chart.render();
 
     chart.options.data = coinsList.map((name) => {
         return {
@@ -72,6 +72,7 @@ function renderChart(coinsList) {
             dataPoints: []
         }
     });
+    chart.render();
 
     state.intervalId = setInterval(() => {
         $.ajax(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${coins}&tsyms=USD`, {
@@ -84,10 +85,11 @@ function renderChart(coinsList) {
                 temp.forEach((value, index) => {
                     chart.options.data[index].dataPoints.push({x: new Date, y: value});
                 });
+                // chart.options.axisX.title = `chart updates every ${state.chartUpdateInterval / 1000} secs`;
                 chart.render()
             }
         });
-    }, updateInterval);
+    }, state.chartUpdateInterval);
 
     function toggleDataSeries(e) {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -104,8 +106,8 @@ function notSupportedCoins(coinsList) {
     let unique2 = coinsList.filter(val => state.chartElement.indexOf(val) === -1);
     const notSupportedCoins = unique1.concat(unique2);
     if (notSupportedCoins.length > 0) {
-        $ELEMENTS.notSupCoins.html(`<h5>Sorry. Coins "<span class="text-danger">
-            ${notSupportedCoins.join(', ').toUpperCase()}</span>" NOT Supported in Chart</h5>`)
+        $ELEMENTS.notSupCoins.html(`<h5>Coins <span class="text-danger">
+            "${notSupportedCoins.join(', ').toUpperCase()}"</span> NOT Supported in Chart</h5>`)
     }
 }
 
