@@ -6,6 +6,7 @@ const chartModule = function () {
             </div>`);
 
     const coins = state.chartElement.join(',');
+    state.newCoinsList = [];
 
     if (state.chartElement.length === 0) {
         $ELEMENTS.chartContainer.html('<h4 class="text-center text-secondary">You must choose minimum one coin.</h4>')
