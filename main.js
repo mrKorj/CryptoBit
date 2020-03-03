@@ -296,6 +296,7 @@ function searchTab() {
 function topCoins() {
     clearInterval(state.intervalId);
     const topCoinsEl = [];
+    $ELEMENTS.content.html('');
     $ELEMENTS.topCoinsContent.html('');
     $ELEMENTS.notSupCoins.html('');
     generateFilteredArr(state.topCoins, topCoinsEl);
