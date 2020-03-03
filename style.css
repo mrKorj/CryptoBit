@@ -153,10 +153,11 @@ body {
 
     .custom-text {
         font-size: 1.5rem;
+        margin-bottom: 0 !important;
     }
 
     .logo img{
-        max-width: 2rem;
+        max-width: 1.9rem;
     }
 }
 
