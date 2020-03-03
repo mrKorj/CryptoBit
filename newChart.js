@@ -8,7 +8,7 @@ const chartModule = function () {
     const coins = state.chartElement.join(',');
 
     if (state.chartElement.length === 0) {
-        $ELEMENTS.chartContainer.html('<h4 class="text-center">You must choose minimum one coin.</h4>')
+        $ELEMENTS.chartContainer.html('<h4 class="text-center text-secondary">You must choose minimum one coin.</h4>')
     } else {
         $.ajax(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${coins}&tsyms=USD`, {
             success: resData => {
@@ -85,7 +85,6 @@ function renderChart(coinsList) {
                 temp.forEach((value, index) => {
                     chart.options.data[index].dataPoints.push({x: new Date, y: value});
                 });
-                // chart.options.axisX.title = `chart updates every ${state.chartUpdateInterval / 1000} secs`;
                 chart.render()
             }
         });
